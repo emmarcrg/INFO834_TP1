@@ -1,13 +1,23 @@
-// Remplacez l'appel direct à Python par une requête fetch
-fetch('http://localhost:4000/run-python')
-    .then(response => response.text())
-    .then(data => {
-        console.log(`Sortie Python : ${data}`);
+// Fonction pour envoyer une requête au serveur Flask
+function appelerFlask(param) {
+    fetch('http://127.0.0.1:5000/api/run', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ param: param }), // Envoyer un paramètre
     })
-    .catch(error => {
-        console.error('Erreur lors de l\'appel au serveur :', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            console.log(`Réponse du serveur Flask : ${data.result}`);
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'appel au serveur Flask :', error);
+        });
+}
 
+// Exemple d'appel de la fonction
+appelerFlask('Bonjour Flask!');
 
 // Fonction pour générer la page de login
 function afficherLogin() {
