@@ -1,7 +1,7 @@
 import mysql.connector
 import os
 
-def get_db(logs_path=os.path.join("webApp2", "logs_db.txt")):
+def get_db(logs_path=os.path.join("logs_db.txt")):
     with open(logs_path, "r") as file:
         # Lire les 4 premières lignes du fichier (user/pwd/host/port/db)
         logs = file.readlines()
