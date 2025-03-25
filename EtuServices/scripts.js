@@ -1,3 +1,14 @@
+// Remplacez l'appel direct à Python par une requête fetch
+fetch('http://localhost:4000/run-python')
+    .then(response => response.text())
+    .then(data => {
+        console.log(`Sortie Python : ${data}`);
+    })
+    .catch(error => {
+        console.error('Erreur lors de l\'appel au serveur :', error);
+    });
+
+
 // Fonction pour générer la page de login
 function afficherLogin() {
     document.body.innerHTML = ''; // Efface le contenu existant
@@ -22,6 +33,7 @@ function afficherLogin() {
 
     const bouton = document.createElement('button');
     bouton.textContent = 'Se connecter';
+    
     bouton.onclick = (e) => {
         e.preventDefault();
         afficherAccueil(); // Redirection vers la page accueil
