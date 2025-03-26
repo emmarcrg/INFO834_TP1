@@ -46,11 +46,44 @@ function afficherLogin() {
     
     bouton.onclick = (e) => {
         e.preventDefault();
-        afficherAccueil(); // Redirection vers la page accueil
+        // Récupérer les valeurs des champs
+        const username = inputNom.value;
+        const password = inputMotDePasse.value;
+
+        console.log(`Nom d'utilisateur : ${username}`);
+        console.log(`Mot de passe : ${password}`);
+
+        // Envoyer les données au serveur Flask
+        envoyerConnexion(username, password);
     };
     formulaire.appendChild(bouton);
 
     document.body.appendChild(formulaire);
+}
+
+// Fonction pour envoyer les données de connexion au serveur Flask
+function envoyerConnexion(username, password) {
+    //console.log("Tentative d'envoyer les données")
+    fetch('http://127.0.0.1:5000/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: username, password: password }), // Envoyer les données
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Connexion réussie');
+                afficherAccueil(); // Redirection vers la page d'accueil
+            } else {
+                console.error('Échec de la connexion :', data.message);
+                alert('Échec de la connexion : ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la connexion :', error);
+        });
 }
 
 // Fonction pour générer la page d'accueil
