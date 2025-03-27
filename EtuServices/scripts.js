@@ -14,6 +14,26 @@ function appelerFlask(param) {
         .catch(error => {
             console.error('Erreur lors de l\'appel au serveur Flask :', error);
         });
+    
+        // Appel à la route /api/reset_connections
+    fetch('http://127.0.0.1:5000/api/reset_connections', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Réinitialisation réussie pour l'utilisateur : ${username}`);
+            } else {
+                console.error(`Échec de la réinitialisation : ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la réinitialisation :', error);
+        });
+    
 }
 
 // Exemple d'appel de la fonction
