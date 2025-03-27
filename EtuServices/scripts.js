@@ -15,8 +15,27 @@ function appelerFlask(param) {
             console.error('Erreur lors de l\'appel au serveur Flask :', error);
         });
     
-        // Appel à la route /api/reset_connections
+    // Appel à la route /api/reset_connections
     fetch('http://127.0.0.1:5000/api/reset_connections', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Réinitialisation réussie pour l'utilisateur : ${username}`);
+            } else {
+                console.error(`Échec de la réinitialisation : ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la réinitialisation :', error);
+        });
+
+    // Appel à la route /api/logout
+    fetch('http://127.0.0.1:5000/api/logout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -104,6 +123,8 @@ function envoyerConnexion(username, password) {
         .catch(error => {
             console.error('Erreur lors de la connexion :', error);
         });
+
+
 }
 
 // Fonction pour générer la page d'accueil
@@ -122,6 +143,25 @@ function afficherAccueil() {
     bouton.textContent = 'Voir nos services';
     bouton.onclick = () => afficherServices(); // Redirection vers la page services
     document.body.appendChild(bouton);
+
+    // Appel à la route /api/logout
+    fetch('http://127.0.0.1:5000/api/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Réinitialisation réussie pour l'utilisateur : ${username}`);
+            } else {
+                console.error(`Échec de la réinitialisation : ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la réinitialisation :', error);
+        });
 }
 
 // Fonction pour générer la page des services
@@ -140,6 +180,25 @@ function afficherServices() {
     bouton.textContent = 'Retour au Login';
     bouton.onclick = () => afficherLogin(); // Redirection vers la page login
     document.body.appendChild(bouton);
+
+    // Appel à la route /api/logout
+    fetch('http://127.0.0.1:5000/api/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log(`Réinitialisation réussie pour l'utilisateur : ${username}`);
+            } else {
+                console.error(`Échec de la réinitialisation : ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la réinitialisation :', error);
+        });
 }
 
 // Afficher la page de login au chargement
