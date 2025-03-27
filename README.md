@@ -15,5 +15,6 @@ node app.js
 ## Accéder au site : 
 Après avoir tout bien effectué, la dernière commande va vous indiquer un lien vers localhost. C'est le site web.
 (http://localhost:3000)
+Pour pouvoir vous connecter, utiliser une des adresse mail et le mot de passe en lien (disponible dans le dictionnaire utilisateur du code python)
 
 ## Merci 
